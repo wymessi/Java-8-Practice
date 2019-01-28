@@ -12,7 +12,7 @@ public class Apple {
         this.weight = weight;
     }
 
-    String getColor() {
+    public String getColor() {
         return color;
     }
 
@@ -20,11 +20,11 @@ public class Apple {
         this.color = color;
     }
 
-    Double getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    void setWeight(Double weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 }

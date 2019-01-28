@@ -1,5 +1,7 @@
 package com.wymessi.lambda;
 
+import com.wymessi.functionalInterface.Computor;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -24,6 +26,8 @@ public class LambdaGrammar {
         List<Apple> apples = Arrays.asList(a1, a2, a3);
         apples.sort(byWeight);
         apples.forEach((a) -> System.out.println(a.getColor() + "->" + a.getWeight()));
+
+
     }
 
     /**
@@ -70,4 +74,5 @@ public class LambdaGrammar {
         return (a1, a2) -> a1.getWeight().compareTo(a2.getWeight());
 
     }
+
 }
