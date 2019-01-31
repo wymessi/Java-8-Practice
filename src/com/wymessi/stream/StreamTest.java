@@ -1,11 +1,9 @@
 package com.wymessi.stream;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 import java.util.stream.Stream;
 
+import static java.util.Comparator.*;
 import static java.util.stream.Collectors.*;
 
 /**
@@ -119,6 +117,7 @@ public class StreamTest {
         System.out.println(flatMapWords); //打印出[G, o, d, b, y, e, W, r, l]
 
 
+        System.out.println("======查找======");
         //查找
         boolean isHealthy = menu.stream().allMatch(d -> d.getCalories() < 1000);
         System.out.println(isHealthy);
@@ -140,5 +139,52 @@ public class StreamTest {
                         .filter(x -> x % 3 == 0)
                         .findFirst() // 9
                         .ifPresent(System.out::println);
+
+        System.out.println("======规约======");
+        // 求和
+        //int sum = numbers.stream().reduce(0,(a, b) -> a + b);
+        int sum = numbers.stream().reduce(0, Integer::sum);
+        System.out.println(sum);
+
+        //最大值
+        Optional<Integer> max = numbers.stream().reduce(Integer::max);
+        //int max = numbers.stream().reduce(0,(a, b) -> a < b ? b : a);
+        System.out.println(max);
+
+        //最大值
+        Optional<Integer> min = numbers.stream().reduce(Integer::min);
+        //int max = numbers.stream().reduce(0,(a, b) -> a < b ? a : b);
+        System.out.println(min);
+
+        System.out.println("======计数======");
+        long howManyDishes = menu.stream().collect(counting());
+        //这还可以写得更为直接：
+        //long howManyDishes = menu.stream().count();
+        System.out.println(howManyDishes);
+
+        System.out.println("======查找流中的最大值和最小值======");
+        Optional<Dish> maxCaloriesDsih = menu.stream().collect(maxBy(comparing(Dish::getCalories)));
+        System.out.println(maxCaloriesDsih);
+        Optional<Dish> minCaloriesDsih = menu.stream().collect(minBy(comparing(Dish::getCalories)));
+        System.out.println(minCaloriesDsih);
+
+        System.out.println("======汇总======");
+        int sumCalories = menu.stream().collect(summingInt(Dish::getCalories));
+        System.out.println(sumCalories);
+        IntSummaryStatistics menuStatistics =
+                menu.stream().collect(summarizingInt(Dish::getCalories));
+        System.out.println(menuStatistics);
+
+        System.out.println("======连接字符串======");
+        String menuName = menu.stream().map(Dish::getName).collect(joining(", "));
+        System.out.println(menuName);
+
+        System.out.println("======分组======");
+        Map<Dish.Type, List<Dish>> groupByType = menu.stream().collect(groupingBy(Dish::getType));
+        System.out.println(groupByType);
+
+        System.out.println("======分组======");
+        Map<Boolean, List<Dish>> partitionedMenu = menu.stream().collect(partitioningBy(Dish::isVegetarian));
+        System.out.println(partitionedMenu);
     }
 }
