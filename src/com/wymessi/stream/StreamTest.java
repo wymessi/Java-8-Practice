@@ -183,8 +183,8 @@ public class StreamTest {
         Map<Dish.Type, List<Dish>> groupByType = menu.stream().collect(groupingBy(Dish::getType));
         System.out.println(groupByType);
 
-        System.out.println("======分组======");
+        System.out.println("======分区======");
         Map<Boolean, List<Dish>> partitionedMenu = menu.stream().collect(partitioningBy(Dish::isVegetarian));
         System.out.println(partitionedMenu);
     }
-}
+        }
